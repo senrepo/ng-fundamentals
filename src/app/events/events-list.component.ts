@@ -1,18 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { EventService } from './shared/event-service';
+
 
 @Component({
-  selector : 'events-list',
-  templateUrl : './events-list.component.html'
+  selector: 'events-list',
+  templateUrl: './events-list.component.html',
+  styles: [`
+      ul#menu li {
+        display:inline;
+      }
+`]
 })
-export class EventsListComponent {
-  eventDetails = {
-    id : 1,
-    name: 'Angular Connect',
-    date: '09/26/2019',
-    price: 599.99
+export class EventsListComponent implements OnInit {
+  events: any[];
+
+
+  constructor(private eventService: EventService) {
+
   }
 
   handleReservation(data) {
-      console.log('received ' + data);
+    console.log('received ' + data);
+  }
+
+  ngOnInit() {
+    this.events = this.eventService.getEvents();
   }
 }

@@ -1,4 +1,13 @@
 <div>
-    <h3> Upcoming Anuglar Events </h3>
-    <event-thumbnail #thumbnail [event]="eventDetails" (eventReserveClick)="handleReservation($event)" ></event-thumbnail>
+    <div>
+        <ul id="menu">
+            <li>All Events </li>
+            <li>Create Event </li>
+            <li>Profile </li>
+          </ul>  
+    </div>
+    <div *ngFor="let event of events">
+        <event-thumbnail #thumbnail [event]="event" (eventReserveClick)="handleReservation($event)" ></event-thumbnail>
+    </div>
+    
 </div>
