@@ -9,10 +9,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
         <div>Price: \${{ event.price }} </div>
     </div>
     <button (click)="handleReservation()"> Reserve </button>
+    <br/> <br/> 
     `
 })
 export class EventThumbnailComponent {
-    @Input() event: any
+    @Input() event: any;
     @Output() eventReserveClick = new EventEmitter();
 
     handleReservation() {

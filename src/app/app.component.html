@@ -3,6 +3,15 @@
   <h3>
     Welcome to {{ title }} Application
   </h3>
-  <events-list></events-list>
+  <hr>
+  <div>
+    <ul id="menu">
+      <li> <a [routerLink]="['/events']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        All Events</a> &nbsp; &nbsp; &nbsp;</li>
+      <li> <a [routerLink]="['/events/new']" routerLinkActive="active">Create Event</a> &nbsp; &nbsp; &nbsp;</li>
+      <li> <a [routerLink]="['user/profile']" routerLinkActive="active">Profile</a> </li>
+    </ul>
+  </div>
+  <hr>
+  <router-outlet></router-outlet>
 </div>
-

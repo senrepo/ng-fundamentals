@@ -1,13 +1,5 @@
 <div>
-    <div>
-        <ul id="menu">
-            <li>All Events </li>
-            <li>Create Event </li>
-            <li>Profile </li>
-          </ul>  
-    </div>
-    <div *ngFor="let event of events">
+    <div [routerLink]="['/events', event.id]"  *ngFor="let event of events">
         <event-thumbnail #thumbnail [event]="event" (eventReserveClick)="handleReservation($event)" ></event-thumbnail>
     </div>
-    
 </div>
