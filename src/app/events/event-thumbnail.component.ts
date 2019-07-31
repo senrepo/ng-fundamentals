@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { IEvent } from './shared/index';
 
 @Component({
     selector: 'event-thumbnail',
@@ -9,11 +10,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
         <div>Price: \${{ event.price }} </div>
     </div>
     <button (click)="handleReservation()"> Reserve </button>
-    <br/> <br/> 
+    <br/> <br/>
     `
 })
 export class EventThumbnailComponent {
-    @Input() event: any;
+    @Input() event: IEvent;
     @Output() eventReserveClick = new EventEmitter();
 
     handleReservation() {
