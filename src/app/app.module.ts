@@ -24,6 +24,8 @@ import {
   EventListResolver
 } from './events/index';
 
+import { AuthService } from './user/auth.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +44,8 @@ import {
     {
       provide: 'canDeactivateCreateEvent', useValue: CheckDirtyState
     },
-    EventListResolver
+    EventListResolver,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

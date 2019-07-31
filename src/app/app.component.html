@@ -9,7 +9,8 @@
       <li> <a [routerLink]="['/events']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
         All Events</a> &nbsp; &nbsp; &nbsp;</li>
       <li> <a [routerLink]="['/events/new']" routerLinkActive="active">Create Event</a> &nbsp; &nbsp; &nbsp;</li>
-      <li> <a [routerLink]="['user/profile']" routerLinkActive="active">Profile</a> </li>
+      <li> <a *ngIf="!auth.isAuthenticated()" [routerLink]="['user/login']" routerLinkActive="active">Login</a> &nbsp; &nbsp; &nbsp;</li>   
+      <li> <a *ngIf="auth.isAuthenticated()" [routerLink]="['user/profile']" routerLinkActive="active">Welcome {{auth.currentUser.firstName}}</a> </li>
     </ul>
   </div>
   <hr>
