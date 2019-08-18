@@ -25,7 +25,8 @@ import {
   EventService,
   EventRouteActivator,
   EventListResolver,
-  SessionListComponent
+  SessionListComponent,
+  DurationPipe
 } from './events/index';
 
 import { AuthService } from './user/auth.service';
@@ -40,7 +41,8 @@ import { AuthService } from './user/auth.service';
     Error404Component,
     CreateSessionComponent,
     SessionListComponent,
-    CollapsibleWellComponent
+    CollapsibleWellComponent,
+    DurationPipe
   ],
   imports: [
     BrowserModule,

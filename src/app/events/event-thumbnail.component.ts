@@ -5,7 +5,7 @@ import { IEvent } from './shared/index';
     selector: 'event-thumbnail',
     template: `
     <div>
-        <div> {{event.name}} </div>
+        <div> {{event.name | uppercase}} </div>
         <div>Date: {{event.date}} </div>
         <div>Price: \${{ event.price }} </div>
     </div>
