@@ -19,4 +19,6 @@ export interface ISession {
     presenter: string;
     duration: number;
     level: string;
+    abstract: string,
+    voters?: any
 }

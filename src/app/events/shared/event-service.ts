@@ -25,6 +25,11 @@ export class EventService {
     EVENTS.push(event);
   }
 
+  updateEvent(event) {
+    let index = EVENTS.findIndex(x => x.id = event.id);
+    EVENTS[index] = event;
+  }
+
 }
 
 const EVENTS: IEvent[] = [
@@ -38,7 +43,53 @@ const EVENTS: IEvent[] = [
       address: '1 London Rd',
       city: 'London',
       country: 'England'
-    }
+    },
+    sessions: [
+      {
+        id: 1,
+        name: 'Using Angular 4 Pipes',
+        presenter: 'Peter Bacon Darwin',
+        duration: 1,
+        level: 'Intermediate',
+        abstract: 'Learn all about the new pipes in Angular 4',
+        voters: ['bradgreen', 'igorminar', 'martinfowler']
+      },
+      {
+        id: 2,
+        name: 'Getting the most out of your dev team',
+        presenter: 'Jeff Cross',
+        duration: 1,
+        level: 'Intermediate',
+        abstract: 'We all know that our dev teams work hard, but with'
+      },
+      {
+        id: 3,
+        name: 'Angular 4 Performance Metrics',
+        presenter: 'Rob Wormald',
+        duration: 2,
+        level: 'Advanced',
+        abstract: 'Angular 4 Performance is hot. In this session',
+        voters: []
+      },
+      {
+        id: 4,
+        name: 'Angular 5 Look Ahead',
+        presenter: 'Brad Green',
+        duration: 2,
+        level: 'Advanced',
+        abstract: 'Even though Angular 5 is still 6 years away, we all want',
+        voters: []
+      },
+      {
+        id: 5,
+        name: 'Basics of Angular 4',
+        presenter: 'John Papa',
+        duration: 2,
+        level: 'Beginner',
+        abstract: 'It time to learn the basics of Angular 4. This talk',
+        voters: ['bradgreen', 'igorminar']
+      }
+    ]
   },
   {
     id: 2,
