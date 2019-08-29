@@ -15,6 +15,7 @@ import { appRoutes } from './routes';
 //import { EventListResolver } from './events/events-list.resolver.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CollapsibleWellComponent } from './common/collapsible-well.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {
   EventsListComponent,
@@ -30,6 +31,7 @@ import {
 } from './events/index';
 
 import { AuthService } from './user/auth.service';
+import { SearchModalComponent } from './common/search-modal.component';
 
 @NgModule({
   declarations: [
@@ -42,13 +44,15 @@ import { AuthService } from './user/auth.service';
     CreateSessionComponent,
     SessionListComponent,
     CollapsibleWellComponent,
-    DurationPipe
+    DurationPipe,
+    SearchModalComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    NgbModule
   ],
   providers: [EventService,
     EventRouteActivator,
@@ -58,7 +62,8 @@ import { AuthService } from './user/auth.service';
     EventListResolver,
     AuthService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ SearchModalComponent ]
 })
 export class AppModule { }
 

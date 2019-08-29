@@ -7,13 +7,50 @@
   <div>
     <ul id="menu">
       <li> <a [routerLink]="['/events']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-        All Events</a> &nbsp; &nbsp; &nbsp;</li>
+          All Events</a> &nbsp; &nbsp; &nbsp;</li>
       <li> <a [routerLink]="['/events/new']" routerLinkActive="active">Create Event</a> &nbsp; &nbsp; &nbsp;</li>
-      <li> <a [routerLink]="['events/session/new']" routerLinkActive="active">Create a Session</a> &nbsp; &nbsp; &nbsp;</li>
-      <li> <a *ngIf="!auth.isAuthenticated()" [routerLink]="['user/login']" routerLinkActive="active">Login</a> &nbsp; &nbsp; &nbsp;</li>   
-      <li> <a *ngIf="auth.isAuthenticated()" [routerLink]="['user/profile']" routerLinkActive="active">Welcome {{auth.currentUser.firstName}}</a> </li>
+      <li> <a [routerLink]="['events/session/new']" routerLinkActive="active">Create a Session</a> &nbsp; &nbsp; &nbsp;
+      </li>
+      <li> <a *ngIf="!auth.isAuthenticated()" [routerLink]="['user/login']" routerLinkActive="active">Login</a> &nbsp;
+        &nbsp; &nbsp;</li>
+      <li> <a *ngIf="auth.isAuthenticated()" [routerLink]="['user/profile']" routerLinkActive="active">Welcome
+          {{auth.currentUser.firstName}}</a> </li>
+      <li>
+        <!-- <form id="searchForm" class="navbar-form navbar-right" (ngSubmit)="searchSessions(searchModal, 'lg')"> -->
+        <form id="searchForm" class="navbar-form navbar-right" (ngSubmit)="searchSessions()">
+          <div class="form-group">
+            <input type="text" class="form-control" [(ngModel)]="searchTerm" name="search"
+              placeholder="Search Sessions">
+          </div>
+          <button class="btn btn-default"> Search </button>
+        </form>
+      </li>
     </ul>
   </div>
+
+  <ng-template #searchModal let-modal>
+    <div class="modal-header">
+      <h6 class="modal-title d-flex text-white align-items-center" id="modal-basic-title">
+        Sessions
+      </h6>
+      <button aria-label="Close" class="close text-white" type="button" (click)="modal.dismiss()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="list-group">
+        <a class="list-group-item" *ngFor="let session of foundsSessions" [routerLink]="['/events',session.eventId]">
+          {{session.name}}
+        </a>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline-primary" (click)="modal.dismiss()">
+        OK
+      </button>
+    </div>
+  </ng-template>
+
   <hr>
   <router-outlet></router-outlet>
 </div>
