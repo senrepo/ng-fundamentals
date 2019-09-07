@@ -27,7 +27,10 @@ import {
   EventRouteActivator,
   EventListResolver,
   SessionListComponent,
-  DurationPipe
+  DurationPipe,
+  UpvoteComponent,
+  VoterService,
+  LocationValidator
 } from './events/index';
 
 import { AuthService } from './user/auth.service';
@@ -45,7 +48,9 @@ import { SearchModalComponent } from './common/search-modal.component';
     SessionListComponent,
     CollapsibleWellComponent,
     DurationPipe,
-    SearchModalComponent
+    SearchModalComponent,
+    UpvoteComponent,
+    LocationValidator
   ],
   imports: [
     BrowserModule,
@@ -60,7 +65,8 @@ import { SearchModalComponent } from './common/search-modal.component';
       provide: 'canDeactivateCreateEvent', useValue: CheckDirtyState
     },
     EventListResolver,
-    AuthService
+    AuthService,
+    VoterService
   ],
   bootstrap: [AppComponent],
   entryComponents: [ SearchModalComponent ]
