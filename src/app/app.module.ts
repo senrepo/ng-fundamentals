@@ -15,7 +15,8 @@ import { appRoutes } from './routes';
 //import { EventListResolver } from './events/events-list.resolver.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CollapsibleWellComponent } from './common/collapsible-well.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 import {
   EventsListComponent,
@@ -57,9 +58,11 @@ import { SearchModalComponent } from './common/search-modal.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
-    NgbModule
+    NgbModule,
+    HttpClientModule
   ],
-  providers: [EventService,
+  providers: [
+    EventService,
     EventRouteActivator,
     {
       provide: 'canDeactivateCreateEvent', useValue: CheckDirtyState
@@ -69,7 +72,7 @@ import { SearchModalComponent } from './common/search-modal.component';
     VoterService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ SearchModalComponent ]
+  entryComponents: [SearchModalComponent]
 })
 export class AppModule { }
 

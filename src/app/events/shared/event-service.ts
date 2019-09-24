@@ -1,24 +1,37 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, of } from 'rxjs';
 import { setTNodeAndViewData } from '@angular/core/src/render3/state';
 import { IEvent, ISession } from './event.model';
+import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class EventService {
 
-  getEvents(): Observable<IEvent[]> {
-    const subject = new Subject<IEvent[]>();
+  constructor(private http: HttpClient) {
 
-    setTimeout(() => {
-      subject.next(EVENTS);
-      subject.complete();
-    }, 1000);
-    return subject;
+  }
+
+  getEvents(): Observable<IEvent[]> {
+    return this.http.get<IEvent[]>("/api/events")
+    .pipe(catchError(this.handleError<IEvent[]>('getEvents', [])))
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    // return (error: any): Observable<T> => {
+    //   console.log(error);
+    //   return of(result as T);
+    // }
+    return function(error:any): Observable<T> {
+      console.log(error);
+      return of(result as T);
+    }
   }
 
   getEvent(id: number): IEvent {
     return EVENTS.find(event => event.id === id);
   }
+
 
   saveEvent(event) {
     event.id = 999;
@@ -35,18 +48,18 @@ export class EventService {
     var results: ISession[] = [];
 
     EVENTS.forEach(event => {
-      var matchingSessions = event.sessions && event.sessions.filter(session=> {
+      var matchingSessions = event.sessions && event.sessions.filter(session => {
         return session.name.toLocaleLowerCase().indexOf(term) > -1
       });
-      matchingSessions = matchingSessions && matchingSessions.map((session:any) => {
+      matchingSessions = matchingSessions && matchingSessions.map((session: any) => {
         session.eventId = event.id;
         return session;
       });
-      results = matchingSessions && matchingSessions.length > 1 ?  results.concat(matchingSessions) : results;
+      results = matchingSessions && matchingSessions.length > 1 ? results.concat(matchingSessions) : results;
     });
 
     var emitter = new EventEmitter(true);
-    setTimeout(()=> {
+    setTimeout(() => {
       emitter.emit(results);
     }, 100);
     return emitter;
