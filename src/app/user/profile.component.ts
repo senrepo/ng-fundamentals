@@ -16,14 +16,15 @@ export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
   private firstName: FormControl;
   private lastName: FormControl;
+  loginInvalid = false;
 
   constructor(private router: Router, private authService: AuthService) {
 
   }
 
   ngOnInit(): void {
-    this.firstName = new FormControl(this.authService.currentUser.firstName, [Validators.required, Validators.pattern('[a-zA-Z].*')]);
-    this.lastName = new FormControl(this.authService.currentUser.lastName, Validators.required);
+    this.firstName = new FormControl(this.authService.currentUser && this.authService.currentUser.firstName, [Validators.required, Validators.pattern('[a-zA-Z].*')]);
+    this.lastName = new FormControl(this.authService.currentUser && this.authService.currentUser.lastName, Validators.required);
 
     this.profileForm = new FormGroup({
       firstName: this.firstName,
@@ -35,10 +36,23 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/events']);
   }
 
+  logout() {
+    this.authService.logout().subscribe(() => {
+      this.router.navigate(['/user/login']);
+    });
+  }
+
   saveProfile(formValues) {
     if (this.profileForm.valid) {
-      this.authService.updateCurrentUser(formValues.firstName, formValues.lastName);
-      this.router.navigate(['/events']);
+      //this.authService.updateCurrentUser(formValues.firstName, formValues.lastName);
+      this.authService.loginUser(formValues.firstName, formValues.lastName).subscribe(response=> {
+        if(!response) {
+          this.loginInvalid = true;
+        }else {
+          this.router.navigate(['/events']);
+          this.loginInvalid = false;
+        }
+      });
     }
   }
 

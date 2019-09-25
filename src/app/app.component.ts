@@ -22,6 +22,10 @@ export class AppComponent {
 
   }
 
+  ngOnInit() {
+    this.auth.checkAuthenticationStatus();
+  }
+
   // searchSessions(content: any, size: any) {
   //   this.eventService.searchSessions(this.searchTerm).subscribe(sessions => {
   //     this.foundsSessions = sessions;

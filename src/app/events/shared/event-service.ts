@@ -13,33 +13,33 @@ export class EventService {
   }
 
   getEvents(): Observable<IEvent[]> {
-    return this.http.get<IEvent[]>("/api/events")
-      .pipe(catchError(this.handleError<IEvent[]>('getEvents', [])))
+    return this.http.get<IEvent[]>('/api/events')
+      .pipe(catchError(this.handleError<IEvent[]>('getEvents', [])));
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    // return (error: any): Observable<T> => {
-    //   console.log(error);
-    //   return of(result as T);
-    // }
-    return function (error: any): Observable<T> {
-      console.log(error);
-      return of(result as T);
-    }
-  }
+  getEvent(id: number): Observable<IEvent> {
+    //return EVENTS.find(event => event.id === id);
 
-  getEvent(id: number): IEvent {
-    return EVENTS.find(event => event.id === id);
+    return this.http.get<IEvent>('/api/events/' + id)
+    .pipe(catchError(this.handleError<IEvent>('getEvents')));
   }
-
 
   saveEvent(event) {
     // event.id = 999;
     // EVENTS.push(event);
+    const options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
-    let options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+    /*
+    let response = this.http.get("http://localhost:5000/api/values")
+      .pipe(catchError(this.handleError<IEvent[]>('testFunction', [])));
+
+    response.subscribe((x)=> {
+      console.log(x);
+    })
+    */
+
     return this.http.post<IEvent>('/api/events', event, options)
-      .pipe(catchError(this.handleError<IEvent[]>('getEvents', [])));
+      .pipe(catchError(this.handleError<IEvent[]>('saveEvents', [])));
   }
 
   // updateEvent(event) {
@@ -47,26 +47,42 @@ export class EventService {
   //   EVENTS[index] = event;
   // }
 
-  searchSessions(searchTerm: string) {
-    const term = searchTerm.toLocaleLowerCase();
-    var results: ISession[] = [];
+  searchSessions(searchTerm: string): Observable<ISession[]> {
+    // const term = searchTerm.toLocaleLowerCase();
+    // var results: ISession[] = [];
 
-    EVENTS.forEach(event => {
-      var matchingSessions = event.sessions && event.sessions.filter(session => {
-        return session.name.toLocaleLowerCase().indexOf(term) > -1
-      });
-      matchingSessions = matchingSessions && matchingSessions.map((session: any) => {
-        session.eventId = event.id;
-        return session;
-      });
-      results = matchingSessions && matchingSessions.length > 1 ? results.concat(matchingSessions) : results;
-    });
+    // EVENTS.forEach(event => {
+    //   var matchingSessions = event.sessions && event.sessions.filter(session => {
+    //     return session.name.toLocaleLowerCase().indexOf(term) > -1
+    //   });
+    //   matchingSessions = matchingSessions && matchingSessions.map((session: any) => {
+    //     session.eventId = event.id;
+    //     return session;
+    //   });
+    //   results = matchingSessions && matchingSessions.length > 1 ? results.concat(matchingSessions) : results;
+    // });
 
-    var emitter = new EventEmitter(true);
-    setTimeout(() => {
-      emitter.emit(results);
-    }, 100);
-    return emitter;
+    // var emitter = new EventEmitter(true);
+    // setTimeout(() => {
+    //   emitter.emit(results);
+    // }, 100);
+    // return emitter;
+
+
+    return this.http.get<ISession[]>('/api/sessions/search?search=' + searchTerm )
+      .pipe(catchError(this.handleError<ISession[]>('searchSessions', [])));
+
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    // return (error: any): Observable<T> => {
+    //   console.log(error);
+    //   return of(result as T);
+    // }
+    return function(error: any): Observable<T> {
+      console.log(error);
+      return of(result as T);
+    };
   }
 
 }
