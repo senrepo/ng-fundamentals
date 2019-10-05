@@ -44,11 +44,11 @@ export class ProfileComponent implements OnInit {
 
   saveProfile(formValues) {
     if (this.profileForm.valid) {
-      //this.authService.updateCurrentUser(formValues.firstName, formValues.lastName);
-      this.authService.loginUser(formValues.firstName, formValues.lastName).subscribe(response=> {
-        if(!response) {
+      // this.authService.updateCurrentUser(formValues.firstName, formValues.lastName);
+      this.authService.loginUser(formValues.firstName, formValues.lastName).subscribe(response => {
+        if (!response) {
           this.loginInvalid = true;
-        }else {
+        } else {
           this.router.navigate(['/events']);
           this.loginInvalid = false;
         }
